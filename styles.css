@@ -1,0 +1,202 @@
+/* ===== Fonts & Root ===== */
+@font-face{
+  font-family:'SF Pro';
+  src:local('SF Pro Text'), local('SF Pro Display'),
+      local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI');
+}
+:root{
+  --topbar-w:1685px; --topbar-h:37px; --topbar-radius:10px;
+  --gap-top:10px; --gap-stage:10px; --ticker-h:40px;
+
+  /* 왼쪽 패널(이미지들) 스케일: 기본 = 가장 큼 */
+  --left-scale: 1;
+}
+
+/* ===== Base ===== */
+html, body{ margin:0; padding:0; height:100vh; overflow:hidden; }
+body{
+  font-family:'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background:linear-gradient(to bottom, rgba(112,212,225,.46), rgba(255,255,255,.46));
+  background-repeat:no-repeat; background-size:cover; background-attachment:fixed;
+  color:#222;
+}
+
+/* 전역 이미지 인터랙션 최소화 */
+img, svg, picture, canvas{
+  -webkit-user-drag:none;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  pointer-events:auto;
+}
+img::selection{ background:transparent; }
+
+/* ===== Top Bar ===== */
+.top-bar{ width:100%; display:flex; justify-content:center; margin-top:var(--gap-top); }
+.top-bar .inner{
+  width:min(var(--topbar-w), calc(100% - 40px));
+  height:var(--topbar-h); border-radius:var(--topbar-radius); background:#fff;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 20px; box-sizing:border-box; box-shadow:0 2px 4px rgba(0,0,0,.1);
+  font-weight:700; font-size:14px; letter-spacing:-.35px;
+  text-shadow:0 2px 4px rgba(0,0,0,.15);
+}
+
+/* ===== Stage ===== */
+.stage{
+  position:relative; width:100%;
+  margin-top:var(--gap-stage);
+  height:calc(100vh - (var(--gap-top) + var(--topbar-h) + var(--gap-stage) + var(--ticker-h)));
+}
+
+/* 왼쪽 재료 (데스크톱 기본: 절대 좌표 배치) */
+.sidebar-left{
+  position:absolute; left:0; top:0; width:13.31vw; min-width:140px; height:100%;
+  /* 배열 유지한 채 크기만 단계적으로 바꾸기 */
+  transform: scale(var(--left-scale));
+  transform-origin: top left;
+}
+.ingredient{ position:absolute; cursor:pointer; user-select:none; }
+/* 원래 값 유지 (배열/비율 안 깨지게) */
+.ingredient img{
+  width:5.093vw;
+  height:9.422vh;
+  object-fit:contain; display:block; background:transparent; border:none; box-shadow:none;
+}
+
+/* 재료 좌표 (원래 값 유지) */
+.i-bread    { left:3.299vw;  top:8.578vh; }
+.i-patty    { left:10.185vw; top:16.044vh; }
+.i-jam      { left:9.954vw;  top:30.356vh; }
+.i-tomato   { left:2.373vw;  top:32.222vh; }
+.i-ham      { left:5.671vw;  top:44.844vh; }
+.i-shrimp   { left:12.442vw; top:50.000vh; }
+.i-lettuce  { left:3.472vw;  top:56.844vh; }
+.i-cheese   { left:12.5vw;   top:62.267vh; }
+.i-friedegg { left:6.134vw;  top:72.844vh; }
+
+/* 중앙 스택 (데스크톱: 살짝 아래로) */
+.stack{
+  position:absolute; left:50%; bottom:5vh; transform:translateX(-50%);
+  width:20.3vw; height:calc(100% - 5vh); pointer-events:none;
+}
+.stack img{
+  position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:20.3vw; max-width:90%; animation:drop .6s ease forwards;
+  border:none; box-shadow:none; pointer-events:none;
+}
+@keyframes drop{ from{ transform:translate(-50%, -200px); opacity:0;} to{ transform:translate(-50%, 0); opacity:1;} }
+
+/* 오른쪽 고정 아이콘 */
+.right-icon{
+  position:fixed; right:2.083vw;
+  height:9.422vh; width:auto; object-fit:contain;
+  z-index:10; border:none; box-shadow:none;
+}
+.icon-topsecret{ top:47.733vh; } .icon-messages{ top:59.282vh; } .icon-notes{ top:70.831vh; } .icon-safari{ top:82.380vh; }
+
+/* ===== 하단 티커: 끊김 없는 무한 루프 ===== */
+.ticker{
+  position:fixed; left:0; bottom:0; width:100%; height:var(--ticker-h); background:#D8FF4A;
+  display:flex; align-items:center; overflow:hidden; box-shadow:0 -2px 4px rgba(0,0,0,.1); z-index:20;
+}
+.ticker .content{
+  display:flex; align-items:center; white-space:nowrap; will-change:transform;
+  animation: tickerLoop 70s linear infinite; /* 숫자 ↑ = 더 느림 */
+}
+.ticker span{ font-weight:700; font-size:12px; color:#333; margin:0 6px; letter-spacing:-.2px; }
+.ticker .dot{ width:20px; height:20px; object-fit:contain; margin:0 1.5vw; }
+@keyframes tickerLoop{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+/* ===== 파란 메모 ===== */
+.float-note{
+  position:fixed; top:140px; left:60%;
+  background:#45DDFF; color:#0B0B0B;
+  border-radius:0;
+  box-shadow:2px 2px 0.5px rgba(48,50,54,0.65);
+  z-index:1000; cursor:grab; user-select:none;
+  aspect-ratio:30/35;
+  transition: width .2s ease;
+  overflow:hidden;
+}
+.float-note.is-collapsed{ width:30px; }
+.float-note:not(.is-collapsed){ width:238px; }
+.note-body{ position:absolute; inset:0; padding:12px; font-weight:700; line-height:1.4; overflow:auto; }
+.note-title{ font-weight:800; margin:0 0 10px 0; }
+.note-body p{ margin:0 0 10px 0; }
+.note-body p:last-child{ margin-bottom:0; }
+.float-note.is-collapsed .note-body{ display:none; }
+
+/* 파란 메모 내용 스크롤바 숨김 (펼칠 때 깜빡임 방지) */
+.float-note .note-body { scrollbar-width:none; }
+.float-note .note-body::-webkit-scrollbar { width:0; height:0; }
+
+/* ===== PC(데스크톱)에서 스크롤바 완전 숨김 ===== */
+@media (min-width:1024px){
+  *{ scrollbar-width:none; }
+  *::-webkit-scrollbar{ width:0; height:0; }
+}
+
+/* ====== 브레이크포인트(폭 기준)로 왼쪽 패널 스케일을 '연속적으로' 변화 ====== */
+/* 기본(>=1351px): 가장 큼 */
+@media (min-width:1351px){
+  :root{ --left-scale: 1; }
+}
+
+/* 700~1350px: 0.86 → 1.00 사이를 선형 보간 (경계 700/1350에서 점프 없음) */
+@media (min-width:700px) and (max-width:1350px){
+  :root{
+    --left-scale: calc(
+      0.86 + (100vw - 700px) * ((1 - 0.90) / (1350 - 700))
+    );
+  }
+}
+
+/* 551~699px: 0.75 → 0.86 사이를 선형 보간 (경계 551/700에서 점프 없음) */
+@media (min-width:551px) and (max-width:699px){
+  :root{
+    --left-scale: calc(
+      0.75 + (100vw - 551px) * ((0.86 - 0.80) / (699 - 551))
+    );
+  }
+}
+
+/* <=550px: 모바일 레이아웃이므로 패널 스케일은 끔(기존 그대로 그리드 사용) */
+@media (max-width:550px){
+  .sidebar-left{ transform: none !important; }
+}
+
+
+/* ====== 모바일(≤550px): 레이아웃/크기/숨김 규칙 ====== */
+@media (max-width:550px){
+  /* 모바일에서는 우측 아이콘 + 파란 메모 숨김 */
+  .right-icon, .float-note{ display:none !important; }
+
+  /* 무대 영역: 좌(그리드) / 우(스택) */
+  .stage{
+    display:flex; align-items:center; justify-content:space-between;
+    height:calc(100vh - (var(--gap-top) + var(--topbar-h) + var(--gap-stage) + var(--ticker-h)));
+    position:relative;
+  }
+
+  /* 왼쪽: 그리드 나열 (모바일에서는 패널 스케일 제거, 그리드 사용) */
+  .sidebar-left{
+    position:relative; left:auto; top:auto; transform:none !important; /* 모바일에서는 scale 제거 */
+    width:48vw; min-width:0; height:auto;
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:6px; padding:6px;
+  }
+  .ingredient{ position:relative; inset:auto; }
+  .sidebar-left .ingredient img{ width:100%; height:auto; display:block; }
+
+  /* 오른쪽: 스택 (모바일에서 더 작게) */
+  .stack{
+    position:relative; left:auto; bottom:auto; transform:none;
+    width:40vw; height:72vh; pointer-events:none;
+  }
+  .stack img{
+    position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    width:min(32vw, 340px); max-width:90%;
+  }
+}
+
+/* (요청대로 ‘가로로 봐주세요’ 오버레이는 완전히 제거) */

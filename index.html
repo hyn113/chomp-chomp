@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chomp chomp</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- 파란 메모 -->
+  <div id="floatNote" class="float-note is-collapsed" role="dialog" aria-label="chompchomp note" aria-expanded="false">
+    <div class="note-body">
+      <p class="note-title">chompchomp...</p>
+      <p>
+        Bread is patient, bread is kind. A day without a sandwich is just a flat bread.<br/>
+        That’s why we believe every day deserves its own sandwich.<br/>
+        So we wonder you today. Your day looks like... a sandwich!
+      </p>
+    </div>
+  </div>
+
+  <!-- 상단 바 -->
+  <div class="top-bar">
+    <div class="inner">
+      <div>hhhh.archive</div>
+      <div>chomp chomp</div>
+      <div id="timeKR">--:--</div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <!-- 왼쪽 재료 (보이는 건 webp, 쌓일 파일명은 data-svg로 지정) -->
+    <aside class="sidebar-left">
+      <div class="ingredient i-bread"    data-svg="bread.svg"><img src="webp/bread_img.webp" alt="bread"></div>
+      <div class="ingredient i-patty"    data-svg="patty.svg"><img src="webp/patty_img.webp" alt="patty"></div>
+      <div class="ingredient i-jam"      data-svg="jam.svg"><img src="webp/jam_img.webp" alt="jam"></div>
+      <div class="ingredient i-tomato"   data-svg="tomato.svg"><img src="webp/tomato_img.webp" alt="tomato"></div>
+      <div class="ingredient i-ham"      data-svg="ham.svg"><img src="webp/ham_img.webp" alt="ham"></div>
+      <div class="ingredient i-shrimp"   data-svg="shrimp.svg"><img src="webp/shrimp_img.webp" alt="shrimp"></div>
+      <div class="ingredient i-lettuce"  data-svg="lettuce.svg"><img src="webp/lettuce.webp" alt="lettuce"></div>
+      <div class="ingredient i-cheese"   data-svg="cheese.svg"><img src="webp/cheese__img.webp" alt="cheese"></div>
+      <div class="ingredient i-friedegg" data-svg="fried egg.svg"><img src="webp/fried egg_img.webp" alt="fried egg"></div>
+    </aside>
+
+    <!-- 중앙 스택 -->
+    <main id="stack" class="stack" aria-live="polite"></main>
+
+    <!-- 오른쪽 아이콘 -->
+    <img class="right-icon icon-topsecret" src="svg/topsecret.svg" alt="">
+    <img class="right-icon icon-messages"  src="svg/messages.svg"  alt="">
+    <img class="right-icon icon-notes"     src="svg/notes.svg"     alt="">
+    <img class="right-icon icon-safari"    src="svg/safari.svg"    alt="">
+  </div>
+
+  <!-- 하단 티커 -->
+  <div class="ticker" aria-label="news ticker">
+    <div class="content">
+      <span>Pickle declares at press conference: ‘I am no longer just a side!’</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>This morning, the International Sandwich Association held an emergency meeting over reports that cheese was thicker than bread.</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>World’s first zero-gravity sandwich now quietly drifting through space…</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>Mayo and ketchup officially reconcile… declaring the dawn of the ‘Unified Sauce Era’.</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>Study shows: Eating a sandwich vertically makes you 13% happier.</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>‘Meta Sandwich,’ bread stuffed between bread, wins Innovation of the Year.</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>Sandwich Contest ongoing! Winner receives free pickles for life.</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>Competition announced: Whoever says ‘Ah!’ the loudest on their first bite wins instantly.</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>Sandwich Fashion Show debuts: Lettuce dress and tomato hat steal the spotlight.</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>Crying-while-eating-a-sandwich contest brings unexpected waves of emotion…</span>
+      <img class="dot" src="webp/샌드위치 아이콘.webp" alt="">
+      <span>Secret Sandwich Auction to be broadcast live at 9 p.m. tonight.</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
